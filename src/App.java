@@ -9,7 +9,7 @@ public class App {
         Scanner sc = new Scanner(System.in);
         sc.useLocale(Locale.US);
         int opcion = 0;
-        ArticuloImpl service = new ArticuloImpl();  // Renamed to match Java naming conventions
+        ArticuloImpl service = new ArticuloImpl();  
         ArrayList<Articulo> articulos = new ArrayList<>();
         int siguienteIdArticulo = 1;
 
