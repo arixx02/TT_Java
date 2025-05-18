@@ -60,7 +60,7 @@ public class App {
             }
         } while (opcion != 6);
         //prueba de pedidos
-        siguienteIdPedido= pedidoService.addPedido(pedidos, articulos, sc, siguienteIdPedido);
+        siguienteIdPedido = pedidoService.addPedido(pedidos, articulos, sc, siguienteIdPedido);
         System.out.println(pedidoService.getPedido(pedidos, sc));
         pedidoService.updatePedido(sc, pedidos, articulos);
         System.out.println(pedidoService.getPedido(pedidos, sc));
