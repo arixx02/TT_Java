@@ -131,9 +131,9 @@ public class PedidoImpl implements PedidoServices{
                                     System.out.println("ahora si ingrese R o S");
                                     do{
                                         String input = sc.nextLine();
-                                        input.toUpperCase();
+                                        input=input.toUpperCase();
                                         decision = input.charAt(0);
-                                    }while((decision=='R' || decision=='S') && !(decision=='R' && decision=='S'));
+                                    }while(decision!='R' && decision!='S');
                                     if(!articulosPedido.contains(articulo)){
                                         articulo.setDescripcion("la cantidad de este articulo es: "+cantidad);
                                         articulosPedido.add(articulo);
