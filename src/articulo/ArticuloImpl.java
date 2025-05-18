@@ -11,7 +11,9 @@ public class ArticuloImpl implements ArticuloServices {
         String descripcion = sc.nextLine();
         System.out.print("ingresar precio del articulo: ");
         double precio;
-        do{precio = sc.nextDouble();}while(precio<=0);
+        do{
+            precio = sc.nextDouble();
+        }while(precio<=0);
         sc.nextLine(); 
         Articulo nuevoArticulo = new Articulo(siguienteIdArticulo++, nombre, descripcion, precio);
         Articulos.add(nuevoArticulo);
@@ -61,8 +63,11 @@ public class ArticuloImpl implements ArticuloServices {
                 System.out.print("Enter new contenido: ");
                 String nuevaDesc = sc.nextLine();
                 System.out.print("Enter new precio: ");
-                double nuevoPrecio = sc.nextDouble();
-                sc.nextLine();
+                double nuevoPrecio ;
+                do{
+                    nuevoPrecio = sc.nextDouble();
+                    sc.nextLine();
+                }while(nuevoPrecio<=0);
                 Articulo.setNombre(nuevoNombre);
                 Articulo.setDescripcion(nuevaDesc); 
                 Articulo.setPrecio(nuevoPrecio);
