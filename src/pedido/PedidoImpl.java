@@ -9,39 +9,51 @@ public class PedidoImpl implements PedidoServices{
 
     public int addPedido(ArrayList<Pedido> pedidos,ArrayList<Articulo> articulos,Scanner sc,int siguienteIdPedido){
         System.out.println("ingresa el nombre del cliente: ");
-        String nombre= sc.nextLine();
+        String nombre,fecha;
+        do{
+        nombre= sc.nextLine();
+        }while(nombre.length()>20 || nombre.length()<=0);
         System.out.println("ingrese fecha");
-        String fecha= sc.nextLine();
+        do{
+        fecha= sc.nextLine();
+        }while(fecha.length()>20 || fecha.length()<=0);
         ArrayList<Articulo> listaPedido = new ArrayList<>();
-        int opcion=0;
+        int id=0;
         double total=0;
-        while(opcion>0){
+        while(id>=0){
             System.out.println("ingresa el id del producto a pedir (numero negativo para salir): ");
-            int id = sc.nextInt();
-            for(articulo.Articulo articulo : articulos){
+            id = sc.nextInt();
+            sc.nextLine();
+            boolean encontrado = false;
+            for(Articulo articulo : articulos){
                 if(id==articulo.getId()){
                     System.out.println("articulo encontrado, ingrese cantidad: ");
                     int cantidad = sc.nextInt();
+                    encontrado =true;
+                    sc.nextLine();
                     if(!listaPedido.contains(articulo)){
                         articulo.setDescripcion("la cantidad de este articulo es: "+cantidad);
                         listaPedido.add(articulo);
                     }
                     total+=cantidad*articulo.getPrecio();
                 }
-                else{
-                    System.out.println("articulo no encontrado... ");
-                }
+            }
+            if(!encontrado){
+                System.out.println("Articulo no encontrado ...");
             }
         }
         Pedido pedido = new Pedido(siguienteIdPedido,fecha,nombre,total);
+        pedido.setArticulos(listaPedido);
         pedidos.add(pedido);
         return siguienteIdPedido++;
     }
+
     public void removePedido(ArrayList<Pedido> pedidos,Scanner sc) {
         int input;
         System.out.printf("ingresa el Id del pedido a eliminar: ");
         do{
             input=sc.nextInt();
+            sc.nextLine();
         }while(input<=0);
         int id=input;
         if(pedidos.removeIf(pedido -> pedido.getId() == id)){
@@ -51,59 +63,89 @@ public class PedidoImpl implements PedidoServices{
             System.out.printf("pedido con id %d no encontrado...",id);
         }
     }
-    public Pedido getPedido(ArrayList<Pedido> pedidos,Scanner sc){
+
+    public String getPedido(ArrayList<Pedido> pedidos,Scanner sc){
         System.out.println("ingresa el id de pedido a buscar: ");
-        int id = sc.nextInt();
+        int id;
+        do{
+            id = sc.nextInt();
+            sc.nextLine();
+        }while(id<=0);
         for(int i=0;i<pedidos.size();i++){
             if(id==pedidos.get(i).getId()){
-                return pedidos.get(i);
+                return toString1(pedidos.get(i));
             }
         }
         System.out.println("pedido ID no encontrado");
-        return null;
+        return "no se encontro pedido con ID: "+id;
     }
+
     public void updatePedido(Scanner sc,ArrayList<Pedido> pedidos,ArrayList<Articulo> articulos){
         int idPedido,opcion=0;
         char decision;
+        int id;
         System.out.printf("ingresa el Id del pedido a actualizar: ");
         do{
             idPedido=sc.nextInt();
+            sc.nextLine();
         }while(idPedido<=0);
         for(Pedido pedido : pedidos){
-            if(idPedido==pedido.getId()){
-                System.out.println("pedido encontrado, ingrese que quiere cambiar: (-1 para terminar)");
+            while(idPedido==pedido.getId() && opcion>=0){
+                System.out.println("pedido encontrado, ingrese que quiere cambiar: (numero negativo para terminar)");
                 System.out.println("1)nombre, 2)fecha, 3)cantidad de articulos");
                 opcion=sc.nextInt();
+                sc.nextLine();
                 switch(opcion){
                     case 1:
                         System.out.println("ingresa el nombre del cliente actualizado: ");
-                        pedido.setCliente(sc.nextLine());
+                        String nombre;
+                        do{
+                            nombre= sc.nextLine();
+                        }while(nombre.length()>20 || nombre.length()<=0);
+                        pedido.setCliente(nombre);
                         break;
                     case 2:
                         System.out.println("ingrese fecha actualizada");
-                        pedido.setFecha(sc.nextLine());
+                        String fecha;
+                        do{
+                            fecha= sc.nextLine();
+                        }while(fecha.length()>20 || fecha.length()<=0);
+                        pedido.setFecha(fecha);
                         break;
                     case 3:
                         double total=pedido.getTotal();
-                        while(opcion>=0){
-                            System.out.println("ingresa el id del producto a pedir (numero negativo para salir): ");
-                            int id = sc.nextInt();
-                            for(articulo.Articulo articulo : articulos){
+                        ArrayList<Articulo> articulosPedido = pedido.getArticulos();
+                        id=0;
+                        while(id>=0){
+                            System.out.println("ingresa el id del producto a pedir (numero negativo o 0 para salir): ");
+                            id = sc.nextInt();
+                            sc.nextLine();
+                            for(Articulo articulo : articulos){
                                 if(id==articulo.getId()){
                                     System.out.println("articulo encontrado, ingrese cantidad y si queres restar o sumar (R o S) primero cantidad: ");
-                                    int cantidad = sc.nextInt();
+                                    int cantidad;
+                                    do{
+                                        cantidad = sc.nextInt();
+                                        sc.nextLine();
+                                    }while(cantidad<0);
                                     System.out.println("ahora si ingrese R o S");
                                     do{
-                                    String input = sc.next();
-                                    input.toUpperCase();
-                                    decision = input.charAt(0);
-                                    }while(decision!='R' && decision!='S');
-                                    if(!pedido.getArticulos().contains(articulo)){
+                                        String input = sc.nextLine();
+                                        input.toUpperCase();
+                                        decision = input.charAt(0);
+                                    }while((decision=='R' || decision=='S') && !(decision=='R' && decision=='S'));
+                                    if(!articulosPedido.contains(articulo)){
                                         articulo.setDescripcion("la cantidad de este articulo es: "+cantidad);
-                                        pedido.getArticulos().add(articulo);
+                                        articulosPedido.add(articulo);
+                                    }
+                                    else{
+                                        for(int j=0;j<articulosPedido.size();j++){
+                                            if(articulosPedido.get(j).getId()==id)
+                                                articulosPedido.get(j).setDescripcion("la cantidad de este articulo es: "+cantidad);
+                                        }
                                     }
                                     if(decision=='S'){
-                                    total+=cantidad*articulo.getPrecio();
+                                        total+=cantidad*articulo.getPrecio();
                                     }
                                     else {
                                         total-=cantidad*articulo.getPrecio();
@@ -120,9 +162,17 @@ public class PedidoImpl implements PedidoServices{
                         System.out.println("ERROR, opcion no disponible");
                 }
             }
-            else{
+            if(!(idPedido==pedido.getId())){
                 System.out.println("pedido no encontrado... ");
             }
         }
+    }
+
+    String toString1(Pedido pedido){
+        return  "ID: "+pedido.getId()+
+                "\nnombre: "+pedido.getCliente()+
+                "\nfecha: "+pedido.getFecha()+
+                "\nimporte: "+pedido.getTotal()+
+                "\nArticulos: "+pedido.getArticulos().toString();
     }
 }

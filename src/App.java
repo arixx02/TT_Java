@@ -1,17 +1,22 @@
 import java.util.Scanner;
 import articulo.ArticuloImpl;
+import pedido.Pedido;
+import pedido.PedidoImpl;
 import articulo.Articulo;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class App {
     public static void main(String[] args) {
+        PedidoImpl pedidoService = new PedidoImpl();
+        ArrayList<Pedido> pedidos = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         sc.useLocale(Locale.US);
         int opcion = 0;
         ArticuloImpl service = new ArticuloImpl();  
         ArrayList<Articulo> articulos = new ArrayList<>();
         int siguienteIdArticulo = 1;
+        int siguienteIdPedido = 1;
         do {
             System.out.println("\n--- Menu ---");
             System.out.println("1. Crear articulo");
@@ -54,7 +59,11 @@ public class App {
                     System.out.println("Opcion no válida, por favor intente de nuevo.");
             }
         } while (opcion != 6);
-
+        //prueba de pedidos
+        siguienteIdPedido= pedidoService.addPedido(pedidos, articulos, sc, siguienteIdPedido);
+        System.out.println(pedidoService.getPedido(pedidos, sc));
+        pedidoService.updatePedido(sc, pedidos, articulos);
+        System.out.println(pedidoService.getPedido(pedidos, sc));
         sc.close();
     }
 }

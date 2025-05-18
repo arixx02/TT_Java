@@ -13,6 +13,10 @@ public class Pedido {
         return articulos;
     }
 
+    public void setArticulos(ArrayList<Articulo> articulos) {
+        this.articulos=articulos;
+    }
+
     public Pedido(int id, String fecha, String cliente, double total) {
         this.id = id;
         this.fecha = fecha;
