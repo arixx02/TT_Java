@@ -43,4 +43,4 @@ Este proyecto es una aplicación de gestión de pedidos y artículos desarrollad
 2. Abre el proyecto en Visual Studio Code o tu IDE favorito.
 3. Compila el proyecto:
    ```sh
-   javac -d bin src/**/*.java
+   javac -d bin -cp src src/App.java
