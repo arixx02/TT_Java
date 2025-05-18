@@ -1,18 +1,46 @@
-## Getting Started
+# Proyecto Java Back-End - Talento Tech
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+_Autor: Ariel De Brito_
 
-## Folder Structure
+---
 
-The workspace contains two folders by default, where:
+## Descripción
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+Este proyecto es una aplicación de gestión de pedidos y artículos desarrollada en Java, como parte del programa Talento Tech. Permite crear, consultar, modificar y eliminar pedidos y artículos, utilizando buenas prácticas de programación orientada a objetos.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+---
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Estructura de Carpetas
 
-## Dependency Management
+- **src/**: Código fuente del proyecto (paquetes `pedido` y `articulo`)
+- **lib/**: Dependencias externas (si las hubiera)
+- **bin/**: Archivos compilados generados automáticamente
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+---
+
+## Funcionalidades Principales
+
+- **Gestión de Artículos**
+  - Crear, consultar, listar y modificar artículos
+- **Gestión de Pedidos**
+  - Crear, consultar, actualizar y eliminar pedidos
+  - Asociar artículos a pedidos
+
+---
+
+## Tecnologías Utilizadas
+
+- Java 8+
+- Colecciones (`ArrayList`)
+- Programación orientada a objetos (POO)
+- Interfaz de consola (`Scanner`)
+
+---
+
+## Ejecución
+
+1. Clona el repositorio o descarga el código fuente.
+2. Abre el proyecto en Visual Studio Code o tu IDE favorito.
+3. Compila el proyecto:
+   ```sh
+   javac -d bin src/**/*.java
