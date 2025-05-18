@@ -12,7 +12,6 @@ public class App {
         ArticuloImpl service = new ArticuloImpl();  
         ArrayList<Articulo> articulos = new ArrayList<>();
         int siguienteIdArticulo = 1;
-
         do {
             System.out.println("\n--- Menu ---");
             System.out.println("1. Crear articulo");
