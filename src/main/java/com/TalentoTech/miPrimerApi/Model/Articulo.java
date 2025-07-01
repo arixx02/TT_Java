@@ -1,18 +1,28 @@
-package articulo;
+package com.TalentoTech.miPrimerApi.Model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "articulo")
 public class Articulo {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nombre;
     private String descripcion;
     private double precio;
 
-    public Articulo(int id, String nombre, String descripcion, double precio) {
+    public Articulo() {} // Constructor vacío obligatorio para JPA
+
+    public Articulo(Long id, String nombre, String descripcion, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -25,7 +35,7 @@ public class Articulo {
         this.precio = precio;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
